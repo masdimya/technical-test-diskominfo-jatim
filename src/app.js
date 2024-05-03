@@ -9,6 +9,12 @@ routeProvider.init(router)
 
 app.use(json({ limit: '1mb' }))
 app.use(urlencoded({ extended: true }))
+app.use(cors({
+  origin: '*',
+  optionsSuccessStatus: 200
+})
+);
+
 app.use(router)
 
 app.listen(3000, () => {
