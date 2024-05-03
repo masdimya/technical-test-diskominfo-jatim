@@ -1,5 +1,7 @@
+const {logMethod} = require('../../middlewares/log.middleware')
+
 module.exports = (router) => {
-  router.get('/',(req,res)=> {
+  router.get('/',[logMethod],(req,res)=> {
     res.send('user v1')
   })
 
