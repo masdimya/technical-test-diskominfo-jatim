@@ -11,7 +11,7 @@ module.exports = {
     db.sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT || '5432',
-      dialect: 'postgres',
+      dialect: 'mysql',
       define: {
         timestamps: false,
       },
@@ -35,6 +35,10 @@ module.exports = {
     
         files.forEach(file => {
           let filepath = `${dirpath}/${file}`
+
+          if(file == '.gitkeep'){
+            return;
+          }
     
           fs.stat(filepath, (err, stats) => {
               if (err) {
@@ -70,6 +74,10 @@ module.exports = {
     
         files.forEach(file => {
           let filepath = `${dirpath}/${file}`
+
+          if(file == '.gitkeep'){
+            return;
+          }
     
           fs.stat(filepath, (err, stats) => {
               if (err) {
