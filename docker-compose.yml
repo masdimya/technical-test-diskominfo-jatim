@@ -1,0 +1,40 @@
+services:
+  mysql-db:
+      image: mysql:8.0
+      container_name: mysql-db
+      environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: dbname
+        SERVICE_NAME: mysql-db
+      ports:
+        - '3306:3306'
+      volumes:
+        - db_data:/var/lib/mysql
+      networks:
+        - appnetwork
+      healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: express-app
+    ports:
+      - '3000:3000'
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=mysql-db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=secret
+      - DB_NAME=dbname
+    networks:
+      - appnetwork
+volumes:
+  db_data:
+networks:
+  appnetwork:
