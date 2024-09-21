@@ -24,8 +24,10 @@ app.use(multer().any())
 
 app.use(router)
 
-app.listen(3000, async () => {
-  console.log("Server running in port " + 3000);
+
+const PORT =  process.env.APP_PORT || 3000
+app.listen(PORT, async () => {
+  console.log("Server running in port " + PORT);
   global.encrypt = bcryptProvider
   global.db = await dbProvider.init()
   await dbProvider.loadModel()
