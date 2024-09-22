@@ -44,4 +44,23 @@ module.exports = {
 
     return true;
   },
+
+  filterProduct: (data) => {
+    const schema = {
+      id: {
+        optional: true,
+        type: 'array', items: { type: 'number', positive: true, convert: true },
+      },
+    };
+
+    let result = module.exports.validate(data, schema);
+    
+    if (result.length) {
+      console.error(result);
+      throw new Error('filterProduct validation not valid: ', result);
+    } 
+
+    return true;
+  },
+
 }
