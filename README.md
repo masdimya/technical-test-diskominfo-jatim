@@ -21,3 +21,7 @@
 ```
   docker-compose down
 ```
+1. if you have trouble with docker compose, you can run manually with command below. But dont forget to setting up the environment
+```
+  npm run start
+```
